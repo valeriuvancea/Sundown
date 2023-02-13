@@ -5,11 +5,13 @@ using MissionReportingTool.Services.Interfaces;
 using MissionReportingTool.Services;
 using MissionReportingTool.Exceptions;
 using MissionReportingTool.Contracts.Responses;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MissionReportingTool.Controllers
 {
     [Route("Api/[controller]")]
     [ApiController]
+    [Authorize]
     public abstract class BaseApiController<T, U, V> : Controller where T : BaseContract where U : BaseCreationRequest where V : IService<T,U>
     {
         protected readonly V Service;

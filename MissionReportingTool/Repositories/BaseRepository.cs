@@ -8,8 +8,8 @@ namespace MissionReportingTool.Repositories
 {
     public abstract class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly SundownContext Context;
-        private readonly DbSet<T> Entities;
+        protected readonly SundownContext Context;
+        protected readonly DbSet<T> Entities;
 
         protected BaseRepository(SundownContext sundownContext)
         {

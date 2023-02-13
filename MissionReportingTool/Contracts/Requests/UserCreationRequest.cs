@@ -8,7 +8,7 @@ namespace MissionReportingTool.Contracts.Requests
         [StringLength(100, MinimumLength = 2)] string CodeName,
         [StringLength(100, MinimumLength = 2)] string Username,
         [StringLength(100, MinimumLength = 2)] string Email,
-        [StringLength(100, MinimumLength = 8)] string Password,
+        [StringLength(100, MinimumLength = 2)] string Password,
         [StringLength(500, MinimumLength = 2)] string Avatar): BaseCreationRequest
     {
     }

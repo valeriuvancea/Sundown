@@ -25,6 +25,12 @@ namespace MissionReportingTool.Services
             await Repository.Update(entity);
         }
 
+        public async Task<User> GetByUsernameAndPassword(AuthenticateRequest request)
+        {
+            var entity = await Repository.GetByUsernameAndPassword(request.Username, request.Password);
+            return entity != null ? EntityToContract(entity) : null;
+        }
+
         protected override UserEntity CreationRequestToEntity(UserCreationRequest request)
         {
             return new UserEntity

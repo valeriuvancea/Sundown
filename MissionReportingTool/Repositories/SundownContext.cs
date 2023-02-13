@@ -39,8 +39,8 @@ namespace MissionReportingTool.Repositories
                         Id = 1,
                         FirstName = "Yury",
                         LastName = "Gagarin",
-                        CodeName = "FirstName",
-                        Username = "Yuga",
+                        CodeName = "First Man",
+                        Username = "yuga",
                         Email = "yuga@mtr.moon",
                         Password = "poleposition1",
                         Avatar = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Yuri_Gagarin_in_1963.jpg/640px-Yuri_Gagarin_in_1963.jpg"
