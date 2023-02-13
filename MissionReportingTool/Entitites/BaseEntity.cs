@@ -10,9 +10,6 @@ namespace MissionReportingTool.Entities
         public DateTime UpdatedAt { get; set; }
         public DateTime DeletedAt { get; set; }
 
-        public virtual void Update<T>(T contract) where T : BaseContract
-        {
-            Id = contract.Id;
-        }
+        public abstract void Update(BaseContract contract);
     }
 }

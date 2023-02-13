@@ -1,15 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MissionReportingTool.Entities;
+using System.ComponentModel.DataAnnotations;
 
-namespace MissionReportingTool.Contracts.Requests
+namespace MissionReportingTool.Contracts
 {
-    public record UserCreationRequest(
+    public record User(
+        long Id,
         [StringLength(100, MinimumLength = 2)] string FirstName,
         [StringLength(100, MinimumLength = 2)] string LastName,
         [StringLength(100, MinimumLength = 2)] string CodeName,
         [StringLength(100, MinimumLength = 2)] string Username,
         [StringLength(100, MinimumLength = 2)] string Email,
-        [StringLength(100, MinimumLength = 8)] string Password,
-        [StringLength(500, MinimumLength = 2)] string Avatar): BaseCreationRequest
+        [StringLength(500, MinimumLength = 2)] string Avatar) : BaseContract(Id)
     {
     }
 }

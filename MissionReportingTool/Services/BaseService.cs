@@ -16,35 +16,35 @@ namespace MissionReportingTool.Services
             Repository = repository;
         }
 
-        public async Task Create(X request)
+        public async virtual Task<long> Create(X request)
         {
-            await Repository.Create(CreationRequestToEntity(request));
+            return await Repository.Create(CreationRequestToEntity(request));
         }
 
-        public async Task Delete(long id)
+        public async virtual Task Delete(long id)
         {
             await GetEntityById(id);
             await Repository.DeleteById(id);
         }
 
-        public Task<IEnumerable<T>> GetAll()
+        public async virtual Task<IEnumerable<T>> GetByPaginationRequest(PaginationRequest request)
         {
-            throw new NotImplementedException();
+            return (await Repository.GetByPaginationRequest(request)).Select(EntityToContract);
         }
 
-        public async Task<T> GetById(long id)
+        public async virtual Task<T> GetById(long id)
         {
             return EntityToContract(await GetEntityById(id));
         }
 
-        public async Task Update(T contract)
+        public async virtual Task<long> Update(T contract)
         {
             var entity = await GetEntityById(contract.Id);
             entity.Update(contract);
-            await Repository.Update(entity);
+            return await Repository.Update(entity);
         }
 
-        protected async Task<U> GetEntityById(long id)
+        protected async virtual Task<U> GetEntityById(long id)
         {
             var entity = await Repository.GetById(id);
             if (entity == null)

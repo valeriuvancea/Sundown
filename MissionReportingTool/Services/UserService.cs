@@ -4,18 +4,30 @@ using MissionReportingTool.Entities;
 using MissionReportingTool.Repositories;
 using MissionReportingTool.Repositories.Interfaces;
 using MissionReportingTool.Services.Interfaces;
+using MissionReportingTool.Exceptions;
 
 namespace MissionReportingTool.Services
 {
-    public class UserService : BaseService<UserContract, User, IUserRepository, UserCreationRequest>, IUserService
+    public class UserService : BaseService<User, UserEntity, IUserRepository, UserCreationRequest>, IUserService
     {
         public UserService(IUserRepository repository) : base(repository)
         {
         }
 
-        protected override User CreationRequestToEntity(UserCreationRequest request)
+        public async Task ChangePassword(long id, string password)
         {
-            return new User()
+            var entity = await GetEntityById(id);
+            if (entity.Password == password)
+            {
+                throw new SamePasswordException();
+            }
+            entity.Password = password;
+            await Repository.Update(entity);
+        }
+
+        protected override UserEntity CreationRequestToEntity(UserCreationRequest request)
+        {
+            return new UserEntity
             {
                 Avatar = request.Avatar,
                 CodeName = request.CodeName,
@@ -27,9 +39,9 @@ namespace MissionReportingTool.Services
             };
         }
 
-        protected override UserContract EntityToContract(User entity)
+        protected override User EntityToContract(UserEntity entity)
         {
-            return new UserContract(
+            return new User(
                 entity.Id,
                 entity.FirstName,
                 entity.LastName,

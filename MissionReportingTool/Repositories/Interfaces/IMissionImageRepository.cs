@@ -2,7 +2,7 @@
 
 namespace MissionReportingTool.Repositories.Interfaces
 {
-    public interface IUserRepository: IRepository<UserEntity>
+    public interface IMissionImageRepository : IRepository<MissionImageEntity>
     {
     }
 }

@@ -15,11 +15,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SundownContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IMissionReportRepository, MissionReportRepository>();
+builder.Services.AddScoped<IMissionReportService, MissionReportService>();
+builder.Services.AddScoped<IMissionImageRepository, MissionImageRepository>();
+builder.Services.AddScoped<IMissionImageService, MissionImageService>();
 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

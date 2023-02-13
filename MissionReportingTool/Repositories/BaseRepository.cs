@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MissionReportingTool.Contracts.Requests;
 using MissionReportingTool.Entities;
 using MissionReportingTool.Repositories.Interfaces;
 using System.Collections.Generic;
@@ -16,50 +17,53 @@ namespace MissionReportingTool.Repositories
             this.Entities = Context.Set<T>();
         }
 
-        public async Task Create(T entity)
-        {
-            await Entities.AddAsync(entity);
-            await Context.SaveChangesAsync();
-        }
-
-        public async Task delete(T entity)
+        public async Task<long> Create(T entity)
         {
             if (entity == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(entity));
             }
-            Entities.Remove(entity);
+            entity.CreatedAt = DateTime.UtcNow;
+            await Entities.AddAsync(entity);
             await Context.SaveChangesAsync();
+            return entity.Id;
+        }
+
+        public async Task Delete(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            entity.DeletedAt = DateTime.UtcNow;
+            await Update(entity);
         }
 
         public async Task DeleteById(long id)
         {
-            await delete(await Entities.FindAsync(id));
+            await Delete(await GetById(id));
         }
 
-        public Task Delete(T entity)
+        public async Task<IEnumerable<T>> GetByPaginationRequest(PaginationRequest request)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<T>> getAll()
-        {
-            throw new NotImplementedException();
+            return await Entities.Where(e => e.Id > request.LastId).Take(request.Limit).ToListAsync();
         }
 
         public async Task<T> GetById(long id)
         {
-            return await Entities.FindAsync(id);
+            return await Entities.FirstOrDefaultAsync(entity => entity.Id == id && entity.DeletedAt == DateTime.MinValue);
         }
 
-        public async Task Update(T entity)
+        public async Task<long> Update(T entity)
         {
             if (entity == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(entity));
             }
+            entity.UpdatedAt = DateTime.UtcNow;
             Entities.Update(entity);
             await Context.SaveChangesAsync();
+            return entity.Id;
         }
     }
 }

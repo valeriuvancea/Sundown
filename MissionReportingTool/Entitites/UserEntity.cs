@@ -2,7 +2,7 @@
 
 namespace MissionReportingTool.Entities
 {
-    public class User: BaseEntity
+    public class UserEntity: BaseEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -12,10 +12,9 @@ namespace MissionReportingTool.Entities
         public string Password { get; set; }
         public string Avatar { get; set; }
 
-        public override void Update<T>(T contract) 
+        public override void Update(BaseContract contract) 
         {
-            base.Update(contract);
-            var user = contract as UserContract;
+            var user = contract as User;
             if (user != null)
             {
                 FirstName = user.FirstName;

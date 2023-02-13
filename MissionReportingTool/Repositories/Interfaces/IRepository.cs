@@ -1,13 +1,14 @@
-﻿using MissionReportingTool.Entities;
+﻿using MissionReportingTool.Contracts.Requests;
+using MissionReportingTool.Entities;
 
 namespace MissionReportingTool.Repositories.Interfaces
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        Task Create(T entity);
-        Task<IEnumerable<T>> getAll();
+        Task<long> Create(T entity);
+        Task<IEnumerable<T>> GetByPaginationRequest(PaginationRequest request);
         Task<T> GetById(long id);
-        Task Update(T entity);
+        Task<long> Update(T entity);
         Task Delete(T entity);
         Task DeleteById(long id);
     }

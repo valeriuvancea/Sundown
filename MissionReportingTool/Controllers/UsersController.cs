@@ -3,28 +3,40 @@ using Microsoft.AspNetCore.Mvc;
 using MissionReportingTool.Contracts.Requests;
 using MissionReportingTool.Contracts;
 using MissionReportingTool.Services.Interfaces;
+using MissionReportingTool.Exceptions;
+using MissionReportingTool.Contracts.Responses;
 
 namespace MissionReportingTool.Controllers
 {
-    public class UsersController : BaseApiController
+    public class UsersController : BaseApiController<User, UserCreationRequest, IUserService>
     {
-        private readonly IUserService UserService;
+        private readonly IMissionReportService MissionReportService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IMissionReportService missionReportService) : base(userService)
         {
-            UserService = userService;
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(long id)
-        {
-            return Json(await UserService.GetById(id));
+            MissionReportService = missionReportService;
         }
 
         [HttpPost]
-        public async Task Create(UserCreationRequest request)
+        public async Task<IActionResult> Create(UserCreationRequest request)
         {
-            await UserService.Create(request);
+            return Json(new IdResponse(await Service.Create(request)));
+        }
+
+        [HttpPost("{id}/MissionReport")]
+        public async Task<IActionResult> CreateMissionReport(long id, MissionReportCreationRequest request)
+        {
+            if (id != request.UserId)
+            {
+                throw new IdDoesNotMatchException();
+            }
+            return Json(new IdResponse(await MissionReportService.Create(request)));
+        }
+
+        [HttpPost("{id}/ChangePassword")]
+        public async Task ChangePassword(long id, UserPasswordChangeRequest request)
+        {
+            await Service.ChangePassword(id, request.Password);
         }
     }
 }
