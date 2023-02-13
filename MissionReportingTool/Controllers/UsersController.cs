@@ -1,83 +1,30 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MissionReportingTool.Contracts.Requests;
+using MissionReportingTool.Contracts;
+using MissionReportingTool.Services.Interfaces;
 
 namespace MissionReportingTool.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseApiController
     {
-        // GET: UsersController
-        public ActionResult Index()
+        private readonly IUserService UserService;
+
+        public UsersController(IUserService userService)
         {
-            return View();
+            UserService = userService;
         }
 
-        // GET: UsersController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(long id)
         {
-            return View();
+            return Json(await UserService.GetById(id));
         }
 
-        // GET: UsersController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: UsersController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task Create(UserCreationRequest request)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UsersController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: UsersController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UsersController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: UsersController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await UserService.Create(request);
         }
     }
 }

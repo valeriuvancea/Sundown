@@ -1,4 +1,6 @@
-﻿namespace MissionReportingTool.Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MissionReportingTool.Entities
 {
     public class MissionReport: BaseEntity
     {
@@ -8,7 +10,6 @@
         public string Longitude { get; set; }
         public DateTime MissionDate { get; set; }
         public DateTime FinalisationDate { get; set; }
-        public User User { get; set; }
-        public ICollection<MissionImage> MissionImages { get; set; }
+        public long UserId { get; set; }
     }
 }
