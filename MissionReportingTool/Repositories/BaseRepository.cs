@@ -51,7 +51,7 @@ namespace MissionReportingTool.Repositories
 
         public async Task<T> GetById(long id)
         {
-            return await Entities.FirstOrDefaultAsync(entity => entity.Id == id && entity.DeletedAt == DateTime.MinValue);
+            return await Entities.OrderBy(e => e.Id).FirstOrDefaultAsync(entity => entity.Id == id && entity.DeletedAt == DateTime.MinValue);
         }
 
         public async Task<long> Update(T entity)

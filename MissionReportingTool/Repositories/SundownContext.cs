@@ -1,27 +1,37 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MissionReportingTool.Entities;
+using MissionReportingTool.Entitites;
 
 namespace MissionReportingTool.Repositories
 {
     public class SundownContext : DbContext
     {
-        private readonly IConfiguration Configuration;
+        private readonly string DbConnectionString;
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<MissionReportEntity> MissionReports { get; set; }
         public DbSet<MissionImageEntity> MissionImage { get; set; }
+        public DbSet<LandingEntity> Landings { get; set; }
 
         public SundownContext(IConfiguration configuration)
         {
-            Configuration = configuration;
+            DbConnectionString = configuration["DbConnectionString"];
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(Configuration["DbConnectionString"]);
+            optionsBuilder.UseNpgsql(DbConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder
+                .Entity<LandingEntity>()
+                .Property(e => e.Facility)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => Facility.fromName(v)
+                );
+
             modelBuilder.Entity<UserEntity>()
                 .HasData(
                     new UserEntity

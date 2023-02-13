@@ -1,8 +1,12 @@
+using Microsoft.Extensions.Hosting;
 using MissionReportingTool.Exceptions;
+using MissionReportingTool.Handlers;
+using MissionReportingTool.Jobs;
 using MissionReportingTool.Repositories;
 using MissionReportingTool.Repositories.Interfaces;
 using MissionReportingTool.Services;
 using MissionReportingTool.Services.Interfaces;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +23,33 @@ builder.Services.AddScoped<IMissionReportRepository, MissionReportRepository>();
 builder.Services.AddScoped<IMissionReportService, MissionReportService>();
 builder.Services.AddScoped<IMissionImageRepository, MissionImageRepository>();
 builder.Services.AddScoped<IMissionImageService, MissionImageService>();
+builder.Services.AddScoped<ILandingRepository, LandingRepository>();
+builder.Services.AddScoped<ICommandsService, CommandsService>();
+builder.Services.AddSingleton<LandHandler>();
+builder.Services.AddQuartzServer(options =>
+{
+    options.WaitForJobsToComplete = true;
+});
+builder.Services.AddQuartz(q =>
+{
+    q.UseMicrosoftDependencyInjectionJobFactory();
+    q.UseSimpleTypeLoader();
+    q.UseInMemoryStore();
+    q.UseDefaultThreadPool(tp =>
+    {
+        tp.MaxConcurrency = 10;
+    });
 
+    q.ScheduleJob<LandingJob>(
+        trigger => 
+            trigger
+                .WithIdentity("CronTrigger")
+                .WithCronSchedule(builder.Configuration.GetValue<string>("LandingJobCron")),
+        job =>
+            job.WithIdentity("LandingJob")
+    );
+});
+builder.Services.AddHttpClient<LandingJob>();
 
 var app = builder.Build();
 
