@@ -6,6 +6,10 @@ using System.Collections.Generic;
 
 namespace MissionReportingTool.Repositories
 {
+    /// <summary>
+    /// This class can be extended to create a CRUD repository. It already comes with the basic functions
+    /// </summary>
+    /// <typeparam name="T">The database entity class</typeparam>
     public abstract class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
         protected readonly SundownContext Context;

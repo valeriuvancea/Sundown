@@ -137,7 +137,7 @@ namespace MissionReportingTool.Repositories
                         Email = "science@science.com",
                         Password = PasswordHelper.Hash("science"),
                         Avatar = "https://img.freepik.com/free-vector/flat-illustration-biotechnology-concept_23-2148880770.jpg?w=2000",
-                        Role = Role.SCIENTIEST
+                        Role = Role.SCIENTIST
                     },
                     new UserEntity
                     {

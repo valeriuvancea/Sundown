@@ -11,6 +11,12 @@ using MissionReportingTool.Authorization;
 
 namespace MissionReportingTool.Controllers
 {
+    /// <summary>
+    /// This class can be extended to create a CRUD controller. It already comes with the basic endpoints. The authorization level is set to every role. If it is desired to have a different type of authorization for an endpoint defined here, the endpoint method should be overridden.
+    /// </summary>
+    /// <typeparam name="T">The contract returned to the client which is also used as an update request</typeparam>
+    /// <typeparam name="U">The creation request contract</typeparam>
+    /// <typeparam name="V">The service used by this controller</typeparam>
     [Route("Api/[controller]")]
     [ApiController]
     [Authorize]

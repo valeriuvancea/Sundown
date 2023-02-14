@@ -3,6 +3,10 @@ using MissionReportingTool.Entities;
 
 namespace MissionReportingTool.Repositories.Interfaces
 {
+    /// <summary>
+    /// This interface can be extended to create interfaces for CRUD repositories
+    /// </summary>
+    /// <typeparam name="T">The database entity class</typeparam>
     public interface IRepository<T> where T : BaseEntity
     {
         Task<long> Create(T entity);

@@ -1,0 +1,819 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+      "title": "MissionReportingTool",
+      "version": "1.0"
+  },
+  "paths": {
+      "/Api/Authenticate": {
+          "post": {
+              "tags": [
+                  "Authenticate"
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/AuthenticateRequest"
+                          }
+                      },
+                      "text/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/AuthenticateRequest"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/AuthenticateRequest"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      },
+      "/Api/Commands/Land": {
+          "post": {
+              "tags": [
+                  "Commands"
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      },
+      "/Api/MissionImage/{id}/MissionImage": {
+          "post": {
+              "tags": [
+                  "MissionImage"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionImageCreationRequest"
+                          }
+                      },
+                      "text/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionImageCreationRequest"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionImageCreationRequest"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      },
+      "/Api/MissionImage/{id}": {
+          "put": {
+              "tags": [
+                  "MissionImage"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionImage"
+                          }
+                      },
+                      "text/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionImage"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionImage"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          },
+          "delete": {
+              "tags": [
+                  "MissionImage"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          },
+          "get": {
+              "tags": [
+                  "MissionImage"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      },
+      "/Api/MissionImage/_page": {
+          "post": {
+              "tags": [
+                  "MissionImage"
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/PaginationRequest"
+                          }
+                      },
+                      "text/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/PaginationRequest"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/PaginationRequest"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      },
+      "/Api/MissionReport/{id}/MissionReport": {
+          "post": {
+              "tags": [
+                  "MissionReport"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionReportCreationRequest"
+                          }
+                      },
+                      "text/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionReportCreationRequest"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionReportCreationRequest"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      },
+      "/Api/MissionReport/{id}": {
+          "put": {
+              "tags": [
+                  "MissionReport"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionReport"
+                          }
+                      },
+                      "text/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionReport"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/MissionReport"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          },
+          "delete": {
+              "tags": [
+                  "MissionReport"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          },
+          "get": {
+              "tags": [
+                  "MissionReport"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      },
+      "/Api/MissionReport/_page": {
+          "post": {
+              "tags": [
+                  "MissionReport"
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/PaginationRequest"
+                          }
+                      },
+                      "text/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/PaginationRequest"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/PaginationRequest"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      },
+      "/Api/Users": {
+          "post": {
+              "tags": [
+                  "Users"
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/UserCreationRequest"
+                          }
+                      },
+                      "text/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/UserCreationRequest"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/UserCreationRequest"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      },
+      "/Api/Users/{id}": {
+          "get": {
+              "tags": [
+                  "Users"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          },
+          "put": {
+              "tags": [
+                  "Users"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/User"
+                          }
+                      },
+                      "text/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/User"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/User"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          },
+          "delete": {
+              "tags": [
+                  "Users"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      },
+      "/Api/Users/{id}/ChangePassword": {
+          "post": {
+              "tags": [
+                  "Users"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/UserPasswordChangeRequest"
+                          }
+                      },
+                      "text/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/UserPasswordChangeRequest"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/UserPasswordChangeRequest"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      },
+      "/Api/Users/_page": {
+          "post": {
+              "tags": [
+                  "Users"
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/PaginationRequest"
+                          }
+                      },
+                      "text/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/PaginationRequest"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/PaginationRequest"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Success"
+                  }
+              }
+          }
+      }
+  },
+  "components": {
+      "schemas": {
+          "AuthenticateRequest": {
+              "type": "object",
+              "properties": {
+                  "username": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "password": {
+                      "type": "string",
+                      "nullable": true
+                  }
+              },
+              "additionalProperties": false
+          },
+          "MissionImage": {
+              "type": "object",
+              "properties": {
+                  "id": {
+                      "type": "integer",
+                      "format": "int64"
+                  },
+                  "cameraName": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "roverName": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "roverStatus": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "image": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "missionReportId": {
+                      "type": "integer",
+                      "format": "int64"
+                  }
+              },
+              "additionalProperties": false
+          },
+          "MissionImageCreationRequest": {
+              "type": "object",
+              "properties": {
+                  "cameraName": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "roverName": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "roverStatus": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "image": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "missionReportId": {
+                      "type": "integer",
+                      "format": "int64"
+                  }
+              },
+              "additionalProperties": false
+          },
+          "MissionReport": {
+              "type": "object",
+              "properties": {
+                  "id": {
+                      "type": "integer",
+                      "format": "int64"
+                  },
+                  "name": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "description": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "latitude": {
+                      "type": "number",
+                      "format": "double"
+                  },
+                  "longitude": {
+                      "type": "number",
+                      "format": "double"
+                  },
+                  "missionDate": {
+                      "type": "string",
+                      "format": "date-time"
+                  },
+                  "finalisationDate": {
+                      "type": "string",
+                      "format": "date-time"
+                  },
+                  "userId": {
+                      "type": "integer",
+                      "format": "int64"
+                  }
+              },
+              "additionalProperties": false
+          },
+          "MissionReportCreationRequest": {
+              "type": "object",
+              "properties": {
+                  "name": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "description": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "latitude": {
+                      "type": "number",
+                      "format": "double"
+                  },
+                  "longitude": {
+                      "type": "number",
+                      "format": "double"
+                  },
+                  "missionDate": {
+                      "type": "string",
+                      "format": "date-time"
+                  },
+                  "finalisationDate": {
+                      "type": "string",
+                      "format": "date-time"
+                  },
+                  "userId": {
+                      "type": "integer",
+                      "format": "int64"
+                  }
+              },
+              "additionalProperties": false
+          },
+          "PaginationRequest": {
+              "type": "object",
+              "properties": {
+                  "lastId": {
+                      "type": "integer",
+                      "format": "int64"
+                  },
+                  "limit": {
+                      "type": "integer",
+                      "format": "int32"
+                  }
+              },
+              "additionalProperties": false
+          },
+          "Role": {
+              "enum": [
+                  0,
+                  1,
+                  2,
+                  3
+              ],
+              "type": "integer",
+              "format": "int32"
+          },
+          "User": {
+              "type": "object",
+              "properties": {
+                  "id": {
+                      "type": "integer",
+                      "format": "int64"
+                  },
+                  "firstName": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "lastName": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "codeName": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "username": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "email": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "avatar": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "role": {
+                      "$ref": "#/components/schemas/Role"
+                  }
+              },
+              "additionalProperties": false
+          },
+          "UserCreationRequest": {
+              "type": "object",
+              "properties": {
+                  "firstName": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "lastName": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "codeName": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "username": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "email": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "password": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "avatar": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "role": {
+                      "$ref": "#/components/schemas/Role"
+                  }
+              },
+              "additionalProperties": false
+          },
+          "UserPasswordChangeRequest": {
+              "type": "object",
+              "properties": {
+                  "password": {
+                      "type": "string",
+                      "nullable": true
+                  }
+              },
+              "additionalProperties": false
+          }
+      },
+      "securitySchemes": {
+          "Bearer": {
+              "type": "http",
+              "description": "Please enter a valid token",
+              "scheme": "Bearer",
+              "bearerFormat": "JWT"
+          }
+      }
+  },
+  "security": [
+      {
+          "Bearer": []
+      }
+  ]
+}

@@ -5,6 +5,11 @@ using MissionReportingTool.Repositories.Interfaces;
 
 namespace MissionReportingTool.Services.Interfaces
 {
+    /// <summary>
+    /// This interface can be extended to create interfaces for CRUD services
+    /// </summary>
+    /// <typeparam name="T">The contract returned to the client which is also used as an update request</typeparam>
+    /// <typeparam name="U">The creation request contract</typeparam>
     public interface IService<T, U> where T : BaseContract where U : BaseCreationRequest
     { 
         Task<long> Create(U request);

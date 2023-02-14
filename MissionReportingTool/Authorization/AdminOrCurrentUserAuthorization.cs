@@ -6,6 +6,9 @@ using System.Security.Claims;
 
 namespace MissionReportingTool.Authorization
 {
+    /// <summary>
+    /// This attribute can be used for endpoints that should allow only the admin or the current user to access it. The endpoint should have and id path parameter that represents the user id.
+    /// </summary>
     public class AdminOrCurrentUserAuthorization : Attribute, IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext context)

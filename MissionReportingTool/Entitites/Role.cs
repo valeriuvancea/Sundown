@@ -3,7 +3,7 @@
     public enum Role
     {
         ASTRONAUT,
-        SCIENTIEST,
+        SCIENTIST,
         GENERAL,
         ADMIN
     }
