@@ -2,14 +2,24 @@
 using Microsoft.AspNetCore.Mvc;
 using MissionReportingTool.Contracts;
 using MissionReportingTool.Contracts.Requests;
+using MissionReportingTool.Contracts.Responses;
+using MissionReportingTool.Exceptions;
+using MissionReportingTool.Services;
 using MissionReportingTool.Services.Interfaces;
 
 namespace MissionReportingTool.Controllers
 {
-    public class MissionImageController : BaseApiController<MissionImage, MissionImageCreationRequest, IMissionImageService>
+    public class MissionImageController : BaseCrudController<MissionImage, MissionImageCreationRequest, IMissionImageService>
     {
         public MissionImageController(IMissionImageService service) : base(service)
         {
+        }
+
+        [HttpPost("{id}/MissionImage")]
+        [Authorize(Roles = "ASTRONAUT")]
+        public override async Task<IActionResult> Create(MissionImageCreationRequest request)
+        {
+            return await base.Create(request);
         }
 
         [HttpPut("{id}")]

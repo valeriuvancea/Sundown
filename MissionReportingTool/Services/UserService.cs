@@ -11,10 +11,8 @@ namespace MissionReportingTool.Services
 {
     public class UserService : BaseService<User, UserEntity, IUserRepository, UserCreationRequest>, IUserService
     {
-        private readonly string RandomHashSalt;
-        public UserService(IUserRepository repository, IConfiguration configuration) : base(repository)
+        public UserService(IUserRepository repository) : base(repository)
         {
-            RandomHashSalt = configuration["RandomHashSalt"];
         }
 
         public async override Task<long> Create(UserCreationRequest request)
@@ -40,10 +38,6 @@ namespace MissionReportingTool.Services
         public async Task ChangePassword(long id, string password)
         {
             var entity = await GetEntityById(id);
-            if (entity.Password == password)
-            {
-                throw new SamePasswordException();
-            }
             entity.Password = PasswordHelper.Hash(password);
             await Repository.Update(entity);
         }

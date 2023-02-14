@@ -9,7 +9,7 @@ using MissionReportingTool.Services.Interfaces;
 
 namespace MissionReportingTool.Controllers
 {
-    public class MissionReportController : BaseApiController<MissionReport, MissionReportCreationRequest, IMissionReportService>
+    public class MissionReportController : BaseCrudController<MissionReport, MissionReportCreationRequest, IMissionReportService>
     {
         private readonly IMissionImageService MissionImageService;
 
@@ -18,15 +18,11 @@ namespace MissionReportingTool.Controllers
             MissionImageService = missionImageService;
         }
 
-        [HttpPost("{id}/MissionImage")]
+        [HttpPost("{id}/MissionReport")]
         [Authorize(Roles = "ASTRONAUT")]
-        public async Task<IActionResult> CreateMissionImage(long id, MissionImageCreationRequest request)
+        public override async Task<IActionResult> Create(MissionReportCreationRequest request)
         {
-            if (id != request.MissionReportId)
-            {
-                throw new IdDoesNotMatchException();
-            }
-            return Json(new IdResponse(await MissionImageService.Create(request)));
+            return await base.Create(request);
         }
 
         [HttpPut("{id}")]

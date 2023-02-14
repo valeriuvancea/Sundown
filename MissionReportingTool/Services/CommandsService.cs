@@ -1,6 +1,7 @@
 ﻿using MissionReportingTool.Contracts.Responses;
 using MissionReportingTool.Delegates;
 using MissionReportingTool.Delegates.EventsArgs;
+using MissionReportingTool.Exceptions;
 using MissionReportingTool.Handlers;
 using MissionReportingTool.Jobs;
 using MissionReportingTool.Repositories;
@@ -28,7 +29,6 @@ namespace MissionReportingTool.Services
             LandingJob = new LandingJob(configuration, httpClient, loggerFactory.CreateLogger<LandingJob>(), landingRepository);
             Logger = loggerFactory.CreateLogger<CommandsService>();
         }
-
         public async Task Land()
         {
             var closestLanding = await LandingRepository.GetLastClosestLandingPosition();
@@ -39,13 +39,23 @@ namespace MissionReportingTool.Services
 
             }
             var closestLandingFacility = closestLanding.Facility;
-            var result = await HttpClient.GetStringAsync(OpenMeteoApiEndpoint + $"?latitude={closestLandingFacility.Latitude}&longitude={closestLandingFacility.Longitude}&hourly=temperature_2m");
-            var openMeteoResponse = JsonSerializer.Deserialize<OpenMeteoResponse>(result);
+            OpenMeteoResponse openMeteoResponse;
+            try
+            {
+                var result = await HttpClient.GetStringAsync(OpenMeteoApiEndpoint + $"?latitude={closestLandingFacility.Latitude}&longitude={closestLandingFacility.Longitude}&hourly=temperature_2m");
+                openMeteoResponse = JsonSerializer.Deserialize<OpenMeteoResponse>(result);
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError("Exception encountered during and HTTP call", exception);
+                throw new HttpCallException(exception);
+            }
             if (openMeteoResponse != null)
             {
                 var minimumTemperatureIndex = openMeteoResponse.hourly.temperature_2m.Select((item, index) => (item, index)).Min().index;
                 var landingTime = openMeteoResponse.hourly.time.ElementAt(minimumTemperatureIndex);
                 LandPublisher?.Invoke(new LandedEventArgs { LandingTime = landingTime, Facility = closestLandingFacility });
+                Logger.LogInformation("LandedEvent published with landingTime `{}`, and facility `{}`", landingTime, closestLandingFacility);
             }
         }
     }

@@ -14,13 +14,19 @@ namespace MissionReportingTool.Controllers
     [Route("Api/[controller]")]
     [ApiController]
     [Authorize]
-    public abstract class BaseApiController<T, U, V> : Controller where T : BaseContract where U : BaseCreationRequest where V : IService<T,U>
+    public abstract class BaseCrudController<T, U, V> : Controller where T : BaseContract where U : BaseCreationRequest where V : IService<T,U>
     {
         protected readonly V Service;
 
-        protected BaseApiController(V service)
+        protected BaseCrudController(V service)
         {
             this.Service = service;
+        }
+
+        [HttpPost]
+        public virtual async Task<IActionResult> Create(U request)
+        {
+            return Json(new IdResponse(await Service.Create(request)));
         }
 
         [HttpGet("{id}")]

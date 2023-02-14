@@ -27,9 +27,9 @@ namespace MissionReportingTool.Services
             await Repository.DeleteById(id);
         }
 
-        public async virtual Task<IEnumerable<T>> GetByPaginationRequest(PaginationRequest request)
+        public async virtual Task<List<T>> GetByPaginationRequest(PaginationRequest request)
         {
-            return (await Repository.GetByPaginationRequest(request)).Select(EntityToContract);
+            return (await Repository.GetByPaginationRequest(request)).Select(EntityToContract).ToList();
         }
 
         public async virtual Task<T> GetById(long id)

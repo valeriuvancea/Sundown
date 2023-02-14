@@ -8,7 +8,7 @@ namespace MissionReportingTool.Services.Interfaces
     public interface IService<T, U> where T : BaseContract where U : BaseCreationRequest
     { 
         Task<long> Create(U request);
-        Task<IEnumerable<T>> GetByPaginationRequest(PaginationRequest request);
+        Task<List<T>> GetByPaginationRequest(PaginationRequest request);
         Task<T> GetById(long id);
         Task<long> Update(T contract);
         Task Delete(long id);

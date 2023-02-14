@@ -12,7 +12,7 @@ using MissionReportingTool.Authorization;
 
 namespace MissionReportingTool.Controllers
 {
-    public class UsersController : BaseApiController<User, UserCreationRequest, IUserService>
+    public class UsersController : BaseCrudController<User, UserCreationRequest, IUserService>
     {
         private readonly IMissionReportService MissionReportService;
 
@@ -23,28 +23,16 @@ namespace MissionReportingTool.Controllers
 
         [HttpPost]
         [Authorize(Roles = "ADMIN")]
-        public async Task<IActionResult> Create(UserCreationRequest request)
+        public override async Task<IActionResult> Create(UserCreationRequest request)
         {
-            return Json(new IdResponse(await Service.Create(request)));
+            return await base.Create(request);
         }
-
 
         [HttpGet("{id}")]
         [AdminOrCurrentUserAuthorization]
         public override async Task<IActionResult> GetById(long id)
         {
             return await base.GetById(id);
-        }
-
-        [HttpPost("{id}/MissionReport")]
-        [Authorize(Roles = "ASTRONAUT")]
-        public async Task<IActionResult> CreateMissionReport(long id, MissionReportCreationRequest request)
-        {
-            if (id != request.UserId)
-            {
-                throw new IdDoesNotMatchException();
-            }
-            return Json(new IdResponse(await MissionReportService.Create(request)));
         }
 
         [HttpPost("{id}/ChangePassword")]

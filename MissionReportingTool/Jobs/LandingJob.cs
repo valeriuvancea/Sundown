@@ -1,4 +1,5 @@
 ﻿using MissionReportingTool.Entitites;
+using MissionReportingTool.Exceptions;
 using MissionReportingTool.Helpers;
 using MissionReportingTool.Repositories.Interfaces;
 using Quartz;
@@ -22,22 +23,24 @@ namespace MissionReportingTool.Jobs
             this.LandingRepository = landingRepository;
         }
 
-        public Facility CalculateTheClosestFacility(double latitude, double longitude)
-        {
-            return Facility.FACILITIES.MinBy(f =>
-                Math.Abs(DistanceHelper.GetDistance(f.Latitude, f.Longitude, latitude, longitude))
-            );
-        }
-
         public async Task Execute(IJobExecutionContext context)
         {
             Logger.LogInformation("Obtaining ISS location");
-            var response = await HttpClient.GetStringAsync(IssLocationApiEndpoint + "?timestamps=" + ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds());
-            var issLocation = JsonSerializer.Deserialize<List<IssLocationResponse>>(response).FirstOrDefault();
+            IssLocationResponse issLocation;
+            try
+            {
+                var response = await HttpClient.GetStringAsync(IssLocationApiEndpoint + "?timestamps=" + ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds());
+                issLocation = JsonSerializer.Deserialize<List<IssLocationResponse>>(response).FirstOrDefault();
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError("Exception encountered during and HTTP call", exception);
+                throw new HttpCallException(exception);
+            }
             if (issLocation != null)
             {
                 Logger.LogInformation("Current ISS location `{}`", issLocation);
-                var closestFacility = CalculateTheClosestFacility(issLocation.latitude, issLocation.longitude);
+                var closestFacility = DistanceHelper.CalculateTheClosestFacility(issLocation.latitude, issLocation.longitude);
                 Logger.LogInformation("Closest facility to the ISS `{}`", closestFacility);
                 await LandingRepository.Add(closestFacility);
             } else

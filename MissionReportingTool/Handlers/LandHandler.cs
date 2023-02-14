@@ -12,7 +12,7 @@ namespace MissionReportingTool.Handlers
             this.Logger = logger;
         }
 
-        public void Handle(LandedEventArgs eventArgs)
+        public virtual void Handle(LandedEventArgs eventArgs)
         {
             Logger.LogInformation("Landed requested at `{}` in `{}`", eventArgs.LandingTime, eventArgs.Facility);
         }
