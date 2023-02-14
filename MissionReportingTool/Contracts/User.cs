@@ -1,6 +1,7 @@
 ﻿using MissionReportingTool.Entities;
 using MissionReportingTool.Entitites;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace MissionReportingTool.Contracts
 {
@@ -12,7 +13,7 @@ namespace MissionReportingTool.Contracts
         [StringLength(100, MinimumLength = 2)] string Username,
         [StringLength(100, MinimumLength = 2)] string Email,
         [StringLength(500, MinimumLength = 2)] string Avatar,
-        Role Role) : BaseContract(Id)
+        [property: JsonConverter(typeof(JsonStringEnumConverter))] Role Role) : BaseContract(Id)
     {
     }
 }

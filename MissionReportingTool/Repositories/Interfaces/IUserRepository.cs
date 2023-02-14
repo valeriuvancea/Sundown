@@ -6,7 +6,7 @@ namespace MissionReportingTool.Repositories.Interfaces
     {
 
         /// <summary>
-        /// Returns the first user with the provided <param>username<param>, and that doesn't have the provided <param>id<param>, if this was not null
+        /// Returns the first user with the provided username, and that doesn't have the provided id, if this was not null
         /// </summary>
         Task<UserEntity> GetByUsername(string username, long? id = null);
     }

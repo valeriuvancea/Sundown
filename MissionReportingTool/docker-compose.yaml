@@ -1,0 +1,29 @@
+version: "3"
+services:
+  server:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - JwtTokenConfiguration__SigningKey=2GerxGxuPMmDyfUmvRv3JEsYsyy5hfBhbcmyLVTQG9S9XoPKu
+      - DbConnectionString=Host=db;Database=postgres;Username=postgres;Password=postgres
+    depends_on:
+      - db
+    links:
+      - db
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local

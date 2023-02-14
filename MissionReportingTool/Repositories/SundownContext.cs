@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using MissionReportingTool.Configuration;
 using MissionReportingTool.Entities;
 using MissionReportingTool.Entitites;
 using MissionReportingTool.Helpers;
