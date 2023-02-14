@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MissionReportingTool.Repositories;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MissionReportingTool.Migrations
 {
     [DbContext(typeof(SundownContext))]
-    partial class SundownContextModelSnapshot : ModelSnapshot
+    [Migration("20230214091850_AddRoles")]
+    partial class AddRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,7 +175,7 @@ namespace MissionReportingTool.Migrations
                             Email = "yuga@mtr.moon",
                             FirstName = "Yury",
                             LastName = "Gagarin",
-                            Password = "1000.HzNyhtnzMa7fgGJsGmuEkg==.lP60NqH2IyjM6QcCPtsIOcPQ8PY1e6aaoCPkPVRJ6/c=",
+                            Password = "poleposition1",
                             Role = "ASTRONAUT",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "yuga"
@@ -187,7 +190,7 @@ namespace MissionReportingTool.Migrations
                             Email = "alsh@mtr.moon",
                             FirstName = "Alan",
                             LastName = "Shepard",
-                            Password = "1000.oe9VQGho1VaIIoKEn7G/XA==.XpphCNVk4KmZcg9apKnoGHhIl1uBXjLUHLcQbljH+9M=",
+                            Password = "secret",
                             Role = "ASTRONAUT",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "alsh"
@@ -202,7 +205,7 @@ namespace MissionReportingTool.Migrations
                             Email = "vate@mtr.moon",
                             FirstName = "Valentina",
                             LastName = "Tereshkova",
-                            Password = "1000.BUMxWM6Z4MiVxlYWSJOGTQ==.ENn4jM5Dp9ZdbL6CgikXUUqnFTVg1OhUJ5o8XSPBwvY=",
+                            Password = "DQ!cnRVYzQ64@Fwha!XB_kYn",
                             Role = "ASTRONAUT",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "vate"
@@ -217,7 +220,7 @@ namespace MissionReportingTool.Migrations
                             Email = "gubl@mtr.moon",
                             FirstName = "Guion",
                             LastName = "Bluford",
-                            Password = "1000.reJwC1RLKmFRXMFJPLtAKw==.QChVF7+ZSveGpkcHpWv8DfbKgREuK2lmigwdsa0uB6k=",
+                            Password = "STS-8!Challenger1983",
                             Role = "ASTRONAUT",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "gubl"
@@ -232,7 +235,7 @@ namespace MissionReportingTool.Migrations
                             Email = "anmo@mtr.moon",
                             FirstName = "Andreas",
                             LastName = "Mogensen",
-                            Password = "1000.k+ygpGe7K4U53oDyvkdwzA==.Nn8kiN1iRWDBt2vBjEkdDWhQbOCVyYazxH8V3y5p5is=",
+                            Password = "rødgrødmedfløde",
                             Role = "ASTRONAUT",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "anmo"
@@ -247,7 +250,7 @@ namespace MissionReportingTool.Migrations
                             Email = "yiso@mtr.moon",
                             FirstName = "Yi",
                             LastName = "So-Yeon",
-                            Password = "1000.taSKdgfZ9Bxt+ie1PZzd9w==.ZM/rLlYzi9O6o1GPZ99XuDAHLISs7wAe764TMqN3T98=",
+                            Password = "K2t@dACRkGCd3-UQQmCZJbTj",
                             Role = "ASTRONAUT",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "yiso"
@@ -262,7 +265,7 @@ namespace MissionReportingTool.Migrations
                             Email = "admin@system.com",
                             FirstName = "Admin",
                             LastName = "Adminsen",
-                            Password = "1000.AE00gX35YIMYkP6R9ZxBRQ==.HX8sXson15lIqi9aOCWQixkE8ucOJEBcpn55fLjGkSA=",
+                            Password = "admin",
                             Role = "ADMIN",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "admin"
@@ -277,7 +280,7 @@ namespace MissionReportingTool.Migrations
                             Email = "science@science.com",
                             FirstName = "John",
                             LastName = "Doe",
-                            Password = "1000.Yt4aGG8O8E3RGCh66z1fhQ==.s3IPPAJ6HA4bsSLEYltXdm40OKLAk4Q/X8x+/EEgzpc=",
+                            Password = "science",
                             Role = "SCIENTIEST",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "science"
@@ -292,7 +295,7 @@ namespace MissionReportingTool.Migrations
                             Email = "general@space.com",
                             FirstName = "S.",
                             LastName = "Down",
-                            Password = "1000.j7dB/eQQkQ1WMhOhFBSlAg==.DUd/OnRi+RLbf9kq4Y2/RjuTnDSGckzEDXN/5876AOc=",
+                            Password = "general",
                             Role = "GENERAL",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "general"

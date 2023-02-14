@@ -1,4 +1,5 @@
 ﻿using MissionReportingTool.Entities;
+using MissionReportingTool.Entitites;
 using System.ComponentModel.DataAnnotations;
 
 namespace MissionReportingTool.Contracts
@@ -10,7 +11,8 @@ namespace MissionReportingTool.Contracts
         [StringLength(100, MinimumLength = 2)] string CodeName,
         [StringLength(100, MinimumLength = 2)] string Username,
         [StringLength(100, MinimumLength = 2)] string Email,
-        [StringLength(500, MinimumLength = 2)] string Avatar) : BaseContract(Id)
+        [StringLength(500, MinimumLength = 2)] string Avatar,
+        Role Role) : BaseContract(Id)
     {
     }
 }

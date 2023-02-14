@@ -13,9 +13,9 @@ namespace MissionReportingTool.Controllers
     {
         private readonly IAuthenticationService AuthenticationService;
 
-        public AuthenticateController(IAuthenticationService authenticationService)
+        public AuthenticateController(IAuthenticationService authenticationService, ILogger<AuthenticateController> logger)
         {
-            AuthenticationService = authenticationService;
+            this.AuthenticationService = authenticationService;
         }
 
         [HttpPost]

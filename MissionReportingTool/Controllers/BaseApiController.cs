@@ -6,6 +6,8 @@ using MissionReportingTool.Services;
 using MissionReportingTool.Exceptions;
 using MissionReportingTool.Contracts.Responses;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using MissionReportingTool.Authorization;
 
 namespace MissionReportingTool.Controllers
 {
@@ -22,19 +24,19 @@ namespace MissionReportingTool.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(long id)
+        public virtual async Task<IActionResult> GetById(long id)
         {
             return Json(await Service.GetById(id));
         }
 
         [HttpPost("_page")]
-        public async Task<IActionResult> GetByPaginationRequest(PaginationRequest request)
+        public virtual async Task<IActionResult> GetByPaginationRequest(PaginationRequest request)
         {
             return Json(await Service.GetByPaginationRequest(request));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(long id, T contract)
+        public virtual async Task<IActionResult> Update(long id, T contract)
         {
             if (id != contract.Id)
             {
@@ -43,9 +45,8 @@ namespace MissionReportingTool.Controllers
             return Json(new IdResponse(await Service.Update(contract)));
         }
 
-
         [HttpDelete("{id}")]
-        public async Task Delete(long id)
+        public virtual async Task Delete(long id)
         {
             await Service.Delete(id);
         }
